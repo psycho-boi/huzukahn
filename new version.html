@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Surprise ❤️</title>
+    <style>
+        body {
+            background-color: #ffebee;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .container {
+            margin-top: 50px;
+            position: relative;
+            height: 100vh;
+        }
+        .watermelon {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle at 70% 30%, #ff3b3b, #ff6b6b);
+            border-radius: 50% 50% 40% 40%;
+            position: relative;
+            margin: 20px auto;
+        }
+        .watermelon::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 20%;
+            background: #4caf50;
+            border-radius: 0 0 40% 40%;
+        }
+        .seeds {
+            position: absolute;
+            width: 10px;
+            height: 15px;
+            background: black;
+            border-radius: 50%;
+        }
+        .seed1 { top: 40%; left: 30%; }
+        .seed2 { top: 50%; left: 50%; }
+        .seed3 { top: 35%; left: 70%; }
+        .question, .message {
+            font-size: 26px;
+            color: #d32f2f;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .btn-container {
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .yes-btn {
+            background-color: #4caf50;
+            color: white;
+            border-radius: 5px;
+        }
+        .no-btn {
+            background-color: #e91e63;
+            color: white;
+            border-radius: 5px;
+            position: absolute;
+        }
+        .heart {
+            font-size: 50px;
+            color: #e91e63;
+            animation: heartbeat 1s infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        .heart-float {
+            position: absolute;
+            color: #e91e63;
+            font-size: 20px;
+            animation: floatUp 5s linear infinite;
+        }
+        @keyframes floatUp {
+            from {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- First Page -->
+    <div class="container" id="page1">
+        <h1>Hey Huzu! 🍉</h1>
+        <div class="watermelon">
+            <div class="seeds seed1"></div>
+            <div class="seeds seed2"></div>
+            <div class="seeds seed3"></div>
+        </div>
+        <div class="question">Will you be my Valentine? ❤️</div>
+        <div class="btn-container">
+            <button class="btn yes-btn" onclick="showValentinePage()">Yes 💖</button>
+            <button class="btn no-btn" id="noBtn" onmouseover="moveNoButton()">No 🙈</button>
+        </div>
+    </div>
+
+    <!-- Second Page (Hidden initially) -->
+    <div class="container" id="page2" style="display: none;">
+        <div class="heart">❤️</div>
+        <h1>Happy Valentine's Day, Huzu Khan! 💕</h1>
+        <div class="watermelon">
+            <div class="seeds seed1"></div>
+            <div class="seeds seed2"></div>
+            <div class="seeds seed3"></div>
+        </div>
+        <div class="message">You are one in a melon! 🍉</div>
+    </div>
+
+    <div class="floating-hearts"></div>
+    
+    <script>
+        function moveNoButton() {
+            let button = document.getElementById("noBtn");
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 50);
+            button.style.left = x + "px";
+            button.style.top = y + "px";
+        }
+
+        function showValentinePage() {
+            document.getElementById("page1").style.display = "none";
+            document.getElementById("page2").style.display = "block";
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-float');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.querySelector('.floating-hearts').appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        setInterval(createHeart, 300);
+    </script>
+
+</body>
+</html>
